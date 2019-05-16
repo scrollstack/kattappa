@@ -1,10 +1,12 @@
 import './kattappa.scss';
 import './style.scss';
+import 'react-hot-loader';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 
 import Kattappa from './';
+import { hot } from 'react-hot-loader/root';
 
 var initBlock = [{
   type: "text",
@@ -82,4 +84,6 @@ class Container extends React.Component {
   }
 }
 
-ReactDOM.render(<Container />, document.getElementById('editor-content'));
+const HotContainer = hot(Container);
+
+ReactDOM.render(<HotContainer />, document.getElementById('editor-content'));
