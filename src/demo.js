@@ -1,5 +1,6 @@
 import './kattappa.scss';
 import './style.scss';
+//Todo: remove react-hot-reload for production build
 import 'react-hot-loader';
 
 import React from 'react';

@@ -172,24 +172,24 @@ if (env === ENV_PROD) {
   ];
 }
 
-if (env !== ENV_PROD) {
-  config.optimization = {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          name: 'common',
-          chunks: 'initial',
-          minChunks: 3
-        },
-        vendors: {
-          test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-          name: 'vendor',
-          chunks: 'all',
-        }
-      }
-    },
-    noEmitOnErrors: true
-  }
-}
+// if (env !== ENV_PROD) {
+//   config.optimization = {
+//     splitChunks: {
+//       cacheGroups: {
+//         commons: {
+//           name: 'common',
+//           chunks: 'initial',
+//           minChunks: 3
+//         },
+//         vendors: {
+//           test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+//           name: 'vendor',
+//           chunks: 'all',
+//         }
+//       }
+//     },
+//     noEmitOnErrors: true
+//   }
+// }
 
 module.exports = config;
