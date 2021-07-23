@@ -11,6 +11,7 @@ export const baseOptions = {
     ul: {},
     li: {},
     a: { href: true, target: true, },
+    span: { class: true },
     h2: {},
     h3: {},
     u: {},
@@ -113,6 +114,41 @@ export const linkCommand = function () {
   };
 };
 
+export const dropCapCommand = function () {
+  return function (scribe) {
+    const dropCapCommand = new scribe.api.Command('createDropCap');
+
+    dropCapCommand.execute = function () {
+      const selection = new scribe.api.Selection();
+      const range = selection.range;
+      const isOneCharSelected = range.endOffset === range.startOffset + 1 
+
+      if (isOneCharSelected) {
+        const parentOfAnchor = selection.selection.anchorNode.parentElement;
+        const isSpanNode = parentOfAnchor.nodeName === 'SPAN' && parentOfAnchor.className.includes('firstcharacter');
+        let spanNode = '';
+        if (!isSpanNode) {
+          spanNode = document.createElement("span");
+          spanNode.className = 'firstcharacter'
+          spanNode.innerHTML = selection.selection.toString();
+          range.deleteContents();
+        } else {
+          spanNode = document.createTextNode(selection.selection.toString());
+          parentOfAnchor.remove();
+        }
+        range.insertNode(spanNode);
+      }
+    };
+
+    dropCapCommand.queryEnabled = function () {
+      return true;
+    };
+
+    scribe.commands.setDropCap = dropCapCommand;
+  };
+
+};
+
 export const isEditorEmpty = (scribe) => {
   var childNodes = scribe.el.childNodes;
   var blockCount = childNodes.length;
@@ -135,7 +171,10 @@ export const isEditorEmpty = (scribe) => {
 export const defaultCommands = {
   // bold: (e) => ((e.metaKey || e.ctrlKey) && e.which === 66),
   // italic: (e) => ((e.metaKey || e.ctrlKey) && e.which === 73),
-  h3: (e) => ((e.metaKey || e.ctrlKey) && e.which === 51), // 3
+  h3: (e) => ((e.metaKey || e.ctrlKey) && e.which === 51), // 
+  setDropCap: (e) => {
+    return e.ctrlKey && e.shiftKey && e.keyCode === 68
+  }
 };
 
 export const keyboardPlugin = (commandsToKeyboardShortcutsMap = defaultCommands) => (scribe) => {
