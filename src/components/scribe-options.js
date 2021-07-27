@@ -129,7 +129,7 @@ export const dropCapCommand = function () {
         let spanNode = '';
         if (!isSpanNode) {
           spanNode = document.createElement("span");
-          spanNode.className = 'firstcharacter'
+          spanNode.className = 'drop-cap'
           spanNode.innerHTML = selection.selection.toString();
           range.deleteContents();
         } else {
