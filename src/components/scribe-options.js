@@ -3,7 +3,7 @@ export const baseOptions = {
     p: {},
     br: false,
     b: {},
-    strong: {},
+    strong: (el) => el.classList.contains('drop-cap') ? { class: true } : {},
     i: {},
     em: {},
     strike: {},
@@ -11,7 +11,6 @@ export const baseOptions = {
     ul: {},
     li: {},
     a: { href: true, target: true, },
-    span: { class: true },
     h2: {},
     h3: {},
     u: {},
@@ -125,18 +124,18 @@ export const dropCapCommand = function () {
 
       if (isOneCharSelected) {
         const parentOfAnchor = selection.selection.anchorNode.parentElement;
-        const isSpanNode = parentOfAnchor.nodeName === 'SPAN' && parentOfAnchor.className.includes('firstcharacter');
-        let spanNode = '';
-        if (!isSpanNode) {
-          spanNode = document.createElement("span");
-          spanNode.className = 'drop-cap'
-          spanNode.innerHTML = selection.selection.toString();
+        const isStrongNode = parentOfAnchor.nodeName === 'STRONG' && parentOfAnchor.className.includes('drop-cap');
+        let node = '';
+        if (!isStrongNode) {
+          node = document.createElement("strong");
+          node.classList.add('drop-cap');
+          node.innerHTML = selection.selection.toString();
           range.deleteContents();
         } else {
-          spanNode = document.createTextNode(selection.selection.toString());
+          node = document.createTextNode(selection.selection.toString());
           parentOfAnchor.remove();
         }
-        range.insertNode(spanNode);
+        range.insertNode(node);
       }
     };
 
