@@ -14,6 +14,7 @@ import {
   linkCommand,
   isEditorEmpty,
   keyboardPlugin,
+  dropCapCommand
 } from './scribe-options';
 import Keys from '../utils/keys';
 
@@ -68,6 +69,7 @@ export default class ScribeEditor extends React.Component {
     this.scribe.use(pluginSemanticEl());
     this.scribe.use(pluginHeading(3));
     this.scribe.use(keyboardPlugin());
+    this.scribe.use(dropCapCommand())
     // this.scribe.use(placeholderPlugin('Write your story...', ReactDOM.findDOMNode(this)));
 
     if(this.props.inline || this.props.enterCapture) {
