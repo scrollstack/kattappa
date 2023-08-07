@@ -1,3 +1,16 @@
+import { Extension } from '@tiptap/core'
+import {inputRules, smartQuotes, emDash, ellipsis} from "@tiptap/pm/inputrules"
+
+let basicInputRules = smartQuotes.concat(ellipsis, emDash)
+
+export const BasicInputRulesPlugin = Extension.create({
+  addProseMirrorPlugins() {
+    return [
+      inputRules({ rules: basicInputRules })
+    ]
+  },
+})
+
 export const baseOptions = {
   tags: {
     p: {},
@@ -42,22 +55,27 @@ export const baseInlineOptions = {
 export const toolbarButtons = [{
   command: 'bold',
   icon: 'bold',
+  tiptapCommand: 'toggleBold'
 }, {
   command: 'italic',
   icon: 'italic',
+  tiptapCommand: 'toggleItalic'
 }, {
   command: 'underline',
   icon: 'underline',
+  tiptapCommand: 'toggleUnderline'
 }, {
   command: 'link',
   icon: 'link',
+  tiptapCommand: 'toggleLink'
 }, {
   command: 'h3',
   icon: 'header',
+  tiptapCommand: 'toggleHeading'
 }];
 
 
-const normalizeLink = (link) => {
+export const normalizeLink = (link) => {
   if (link.indexOf('http://') === 0 || link.indexOf('https://') === 0) {
     return link;
   }

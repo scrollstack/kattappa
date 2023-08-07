@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextComponent from '../components/tiptap';
+import TextComponent from '../components/scribe';
 import { baseTextOptions } from '../components/scribe-options';
 
 class BlockText extends React.Component {
@@ -46,14 +46,14 @@ class BlockText extends React.Component {
 }
 
 let Text = {
-  Name: 'text (Tiptap)',
+  Name: 'text',
   React: BlockText,
   Icon: '',
   Empty: function() {
-    return '';
+    return '<p><br></p>';
   },
   maximumBlocks: 0,
-  Description: 'Text (Tiptap)',
+  Description: 'Text',
   isEmpty: function(content) {
     return (content.replace(/(<([^>]+)>)/ig,'') === '');
   },
