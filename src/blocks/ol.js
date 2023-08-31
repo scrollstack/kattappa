@@ -28,7 +28,7 @@ class BlockOL extends React.Component {
     }
     var content = this.props.content;
     content.splice(position + 1, 0, {
-      content: '<p><br></p>',
+      content: '',
       key: uuid()
     });
     if(this.props.onContentChanged) {
@@ -86,7 +86,7 @@ let OL = {
   Icon: '',
   Empty: function() {
     return [{
-      content: '<p><br></p>',
+      content: '',
       key: uuid()
     }];
   },

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { baseOptions } from '../components/scribe-options';
 import BlockText from './text';
-import TextComponent from '../components/scribe';
+import TextComponent from '../components/tiptap';
 
 class BlockQuote extends BlockText.React {
 
@@ -57,7 +57,7 @@ let Quote = {
   Icon: '',
   Empty: function() {
     return {
-      content: '<p><br></p>',
+      content: '',
       credit: ''
     };
   },

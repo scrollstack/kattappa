@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextComponent from '../components/scribe';
+import TextComponent from '../components/tiptap';
 // import getConfig from '../utils/editoroptions';
 import { baseInlineOptions } from '../components/scribe-options';
 import BlockText from './text';
@@ -34,7 +34,7 @@ let H2 = {
   React: BlockH2,
   Icon: '',
   Empty: function() {
-    return '<p><br></p>';
+    return '';
   },
   maximumBlocks: 0,
   Description: 'Heading',

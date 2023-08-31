@@ -77,12 +77,13 @@ export default class TiptapEditor extends React.Component {
         onUpdate: ({ editor }) => {
           this.props.onContentChanged(editor.getHTML());
         },
-        onSelectionUpdate: this.onSelect
+        onSelectionUpdate: this.onSelect,
+        editorProps: {
+          handleKeyDown: (view, e) => {
+            return this.captureReturn(e)
+          }
+        }
     })
-
-    if(this.props.inline || this.props.enterCapture) {
-      this.tiptap.elelment.addEventListener('keydown', this.captureReturn);
-    }
 
     // this.tiptap.commands.setContent(this.props.content);
 
@@ -98,9 +99,6 @@ export default class TiptapEditor extends React.Component {
   }
 
   componentWillUnmount() {
-    if(this.props.inline || this.props.enterCapture) {
-      this.dom.removeEventListener('keydown', this.captureReturn);
-    }
     this.dom.removeEventListener('keydown', this.handleLinkShortcut);
     this.dom.removeEventListener('focus', this.props.onFocus);
     this.dom.removeEventListener('blur', this.onBlur);
@@ -167,7 +165,7 @@ export default class TiptapEditor extends React.Component {
 
   captureReturn(e) {
     if (e.ctrlKey || e.shiftKey || e.altKey || e.metaKey) {
-      return;
+      return false;
     }
     if(e.which === Keys.ENTER) {
       if (this.props.inline || this.props.enterCapture) {
@@ -175,8 +173,10 @@ export default class TiptapEditor extends React.Component {
       }
       if(this.props.captureReturn) {
         this.props.captureReturn();
+        return true;
       }
     }
+    return false
   }
 
   _onSelect({ editor: { view }}) {
