@@ -12,7 +12,8 @@ import Link from '@tiptap/extension-link'
 import {
   toolbarButtons,
   normalizeLink,
-  BasicInputRulesPlugin
+  BasicInputRulesPlugin,
+  Dropcap
 } from './scribe-options';
 import Keys from '../utils/keys';
 
@@ -71,7 +72,8 @@ export default class TiptapEditor extends React.Component {
           }),
           BulletList,
           OrderedList,
-          ListItem
+          ListItem,
+          Dropcap
         ],
         content: this.props.content,
         onUpdate: ({ editor }) => {

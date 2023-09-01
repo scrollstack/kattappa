@@ -1,7 +1,27 @@
-import { Extension } from '@tiptap/core'
+import { Extension, Mark } from '@tiptap/core'
 import {inputRules, smartQuotes, emDash, ellipsis} from "@tiptap/pm/inputrules"
+import {TextSelection} from "@tiptap/pm/state"
 
 let basicInputRules = smartQuotes.concat(ellipsis, emDash)
+
+function isSelectionAtStartOfParagraph(state) {
+  const { selection } = state;
+
+  if (selection instanceof TextSelection) {
+    const posBefore = selection.$from.pos - 1;
+
+    const nodeBefore = selection.$from.nodeBefore;
+    if (nodeBefore && nodeBefore.type.name === "paragraph") {
+      return false;
+    }
+
+    if (selection.$from.parent.type.name === "paragraph") {
+      return selection.$from.parentOffset === 0;
+    }
+  }
+
+  return false;
+}
 
 export const BasicInputRulesPlugin = Extension.create({
   addProseMirrorPlugins() {
@@ -10,6 +30,36 @@ export const BasicInputRulesPlugin = Extension.create({
     ]
   },
 })
+
+export const Dropcap = Mark.create({
+  name: "dropcap",
+
+  draggable: true,
+
+  renderHTML() {
+    return ["strong", { class: 'drop-cap' }, 0];
+  },
+
+  addCommands() {
+    return {
+      toggleCStrong:
+        () =>
+        ({ commands }) => {
+          return commands.toggleMark("dropcap");
+        },
+    };
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      "Ctrl-Shift-D": () => {
+        const shouldRunCmd = isSelectionAtStartOfParagraph(this.editor.view.state)
+        if (shouldRunCmd) return this.editor.commands.toggleCStrong();
+        return;
+      }
+    };
+  },
+});
 
 export const baseOptions = {
   tags: {
