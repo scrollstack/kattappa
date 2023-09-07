@@ -1,6 +1,7 @@
 import React from 'react';
 import Tiptap from './tiptap';
 import Scribe from './scribe';
+import { baseOptions } from './scribe-options';
 
 
 export default class Editor extends React.Component {
@@ -9,17 +10,6 @@ export default class Editor extends React.Component {
     this.state = {
       isTiptap: window.isTiptap,
     };
-    this.toggleBaseEditor = this.toggleBaseEditor.bind(this);
-  }
-
-  toggleBaseEditor(e) {
-    this.setState({
-        isTiptap: !this.state.isTiptap
-      });
-  }
-
-  componentDidMount() {
-    window.editor = this;
   }
 
   render() {
@@ -31,6 +21,7 @@ export default class Editor extends React.Component {
 }
 
 Editor.defaultProps = {
+  options: baseOptions,
   inline: false,
   placeholder: 'Write your story...',
 };
