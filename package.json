@@ -4,9 +4,10 @@
   "description": "A block based rich text editor with support of Images, embeds( Youtube, Instagram, Vine, Vimeo etc)",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublish": "babel ./src -d lib --ignore 'demo.js'",
+    "prepublish": "NODE_ENV=production npm run build:tiptap-exports && babel ./src -d lib --ignore ./src/demo.js,./src/tiptap-exports.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production ./node_modules/.bin/webpack",
+    "build": "NODE_ENV=production npm run build:tiptap-exports && babel ./src -d lib --ignore ./src/demo.js,./src/tiptap-exports.js",
+    "build:tiptap-exports": "vite build -c vite.tiptap-exports.config.js",
     "dev": "mkdir -p lib && cp index.template.html lib/index.html && ./node_modules/.bin/webpack-dev-server --host 0.0.0.0 --port 8080 --devtool eval --content-base lib/ --progress --colors --hot"
   },
   "repository": {
@@ -61,6 +62,7 @@
     "react-hot-loader": "^4.8.4",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
+    "vite": "^4.4.9",
     "webpack": "^4.31.0",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1"

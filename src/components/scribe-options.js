@@ -1,6 +1,4 @@
-import { Extension, Mark } from '@tiptap/core'
-import {inputRules, smartQuotes, emDash, ellipsis} from "@tiptap/pm/inputrules"
-import {TextSelection} from "@tiptap/pm/state"
+import { Extension, Mark, inputRules, smartQuotes, emDash, ellipsis, TextSelection } from '../tiptap-exports'
 
 let basicInputRules = smartQuotes.concat(ellipsis, emDash)
 

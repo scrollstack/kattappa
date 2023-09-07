@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TextComponent from './tiptap';
+import TextComponent from './base-editor';
 import { baseInlineOptions } from './scribe-options';
 
 export default class LI extends React.Component {

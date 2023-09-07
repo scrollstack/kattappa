@@ -5,13 +5,11 @@ import Image from './image';
 import OL from './ol';
 import Quote from './quote';
 import Text from './text';
-import TextScribe from './textscribe';
 
 import UL from './ul';
 
 export default {
-  tiptap: Text,
-  text: TextScribe,
+  text: Text,
   image: Image,
   embed: Embed,
   quote: Quote,

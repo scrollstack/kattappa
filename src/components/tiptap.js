@@ -1,13 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Editor } from '@tiptap/core'
-import StarterKit from '@tiptap/starter-kit'
-import Placeholder from '@tiptap/extension-placeholder'
-import OrderedList from '@tiptap/extension-ordered-list'
-import BulletList from '@tiptap/extension-bullet-list'
-import ListItem from '@tiptap/extension-list-item'
-import Underline from '@tiptap/extension-underline'
-import Link from '@tiptap/extension-link'
+import { Editor, StarterKit, Placeholder, OrderedList, BulletList, ListItem, Underline, Link } from '../tiptap-exports'
 
 import {
   toolbarButtons,
