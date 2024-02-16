@@ -1,7 +1,8 @@
 import React from 'react';
 
-import TextComponent from '../components/scribe';
+import TextComponent from '../components/base-editor';
 import { baseTextOptions } from '../components/scribe-options';
+import { getEmptyContent } from '../utils';
 
 class BlockText extends React.Component {
 
@@ -50,7 +51,7 @@ let Text = {
   React: BlockText,
   Icon: '',
   Empty: function() {
-    return '<p><br></p>';
+    return getEmptyContent();
   },
   maximumBlocks: 0,
   Description: 'Text',

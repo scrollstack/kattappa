@@ -73,7 +73,7 @@ $quill-border-color: #1987C7;
     }
 }
 
-.katap-scribe-container {
+.katap-tiptap-container, .katap-scribe-container {
     position: relative;
 
     .katap-medium-editor {
@@ -128,7 +128,7 @@ $quill-border-color: #1987C7;
     }
 }
 
-.katap-scribe-toolbar {
+.katap-tiptap-toolbar, .katap-scribe-toolbar {
     position: absolute;
     z-index: 1;
     background: #222;
@@ -344,7 +344,7 @@ blockquote.katap-text {
         }
     }
 
-    input.katap-scribe-link-input {
+    input.katap-tiptap-link-input,  input.katap-scribe-link-input{
         width: 98%;
         background: #222;
         color: #fff;
@@ -467,7 +467,7 @@ blockquote.katap-text {
     }
 }
 
-.scribe-plugin-placeholder {
+.tiptap-plugin-placeholder,  .scribe-plugin-placeholder{
     position: absolute;
     color: #9e9e9e;
     pointer-events: none;
@@ -493,4 +493,16 @@ p::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.ProseMirror p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+.ProseMirror:focus-visible {
+    outline: none;
 }

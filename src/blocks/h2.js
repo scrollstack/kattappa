@@ -1,9 +1,10 @@
 import React from 'react';
 
-import TextComponent from '../components/scribe';
+import TextComponent from '../components/base-editor';
 // import getConfig from '../utils/editoroptions';
 import { baseInlineOptions } from '../components/scribe-options';
 import BlockText from './text';
+import { getEmptyContent } from '../utils';
 
 
 class BlockH2 extends BlockText.React {
@@ -34,7 +35,7 @@ let H2 = {
   React: BlockH2,
   Icon: '',
   Empty: function() {
-    return '<p><br></p>';
+    return getEmptyContent();
   },
   maximumBlocks: 0,
   Description: 'Heading',

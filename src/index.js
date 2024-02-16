@@ -3,7 +3,7 @@ import {uuid, UrlRegex} from './utils';
 import Editor from './editor';
 import Blocks from './blocks';
 import BaseEmbed from './blocks/embeds/base';
-import ScribeComponent from './components/scribe';
+import WrappedEditor from './components/base-editor';
 import DroppableComponent from './components/droppable';
 
 export default {
@@ -13,5 +13,5 @@ export default {
   BaseEmbed,
   DroppableComponent,
   UrlRegex,
-  ScribeComponent,
+  ScribeComponent: WrappedEditor,
 };

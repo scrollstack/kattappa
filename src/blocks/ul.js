@@ -1,6 +1,6 @@
 import React from 'react';
 import OL from './ol';
-import {uuid} from '../utils';
+import {getEmptyContent, uuid} from '../utils';
 
 class BlockUL extends OL.React {
   render() {
@@ -18,7 +18,7 @@ let UL = {
   Icon: '',
   Empty: function() {
     return [{
-      content: '<p><br></p>',
+      content: getEmptyContent(),
       key: uuid()
     }];
   },

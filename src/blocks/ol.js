@@ -2,7 +2,7 @@ import React from 'react';
 
 import LI from '../components/listitem';
 import BlockControl from '../components/blockcontrol';
-import {uuid} from '../utils';
+import {getEmptyContent, uuid} from '../utils';
 
 
 class BlockOL extends React.Component {
@@ -28,7 +28,7 @@ class BlockOL extends React.Component {
     }
     var content = this.props.content;
     content.splice(position + 1, 0, {
-      content: '<p><br></p>',
+      content: getEmptyContent(),
       key: uuid()
     });
     if(this.props.onContentChanged) {
@@ -86,7 +86,7 @@ let OL = {
   Icon: '',
   Empty: function() {
     return [{
-      content: '<p><br></p>',
+      content: getEmptyContent(),
       key: uuid()
     }];
   },

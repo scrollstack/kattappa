@@ -1,3 +1,64 @@
+import { Extension, Mark, inputRules, smartQuotes, emDash, ellipsis, TextSelection } from '../tiptap-exports'
+
+let basicInputRules = smartQuotes.concat(ellipsis, emDash)
+
+function isSelectionAtStartOfParagraph(state) {
+  const { selection } = state;
+
+  if (selection instanceof TextSelection) {
+    const posBefore = selection.$from.pos - 1;
+
+    const nodeBefore = selection.$from.nodeBefore;
+    if (nodeBefore && nodeBefore.type.name === "paragraph") {
+      return false;
+    }
+
+    if (selection.$from.parent.type.name === "paragraph") {
+      return selection.$from.parentOffset === 0;
+    }
+  }
+
+  return false;
+}
+
+export const BasicInputRulesPlugin = Extension.create({
+  addProseMirrorPlugins() {
+    return [
+      inputRules({ rules: basicInputRules })
+    ]
+  },
+})
+
+export const Dropcap = Mark.create({
+  name: "dropcap",
+
+  draggable: true,
+
+  renderHTML() {
+    return ["strong", { class: 'drop-cap' }, 0];
+  },
+
+  addCommands() {
+    return {
+      toggleCStrong:
+        () =>
+        ({ commands }) => {
+          return commands.toggleMark("dropcap");
+        },
+    };
+  },
+
+  addKeyboardShortcuts() {
+    return {
+      "Ctrl-Shift-D": () => {
+        const shouldRunCmd = isSelectionAtStartOfParagraph(this.editor.view.state)
+        if (shouldRunCmd) return this.editor.commands.toggleCStrong();
+        return;
+      }
+    };
+  },
+});
+
 export const baseOptions = {
   tags: {
     p: {},
@@ -42,22 +103,27 @@ export const baseInlineOptions = {
 export const toolbarButtons = [{
   command: 'bold',
   icon: 'bold',
+  tiptapCommand: 'toggleBold'
 }, {
   command: 'italic',
   icon: 'italic',
+  tiptapCommand: 'toggleItalic'
 }, {
   command: 'underline',
   icon: 'underline',
+  tiptapCommand: 'toggleUnderline'
 }, {
   command: 'link',
   icon: 'link',
+  tiptapCommand: 'toggleLink'
 }, {
   command: 'h3',
   icon: 'header',
+  tiptapCommand: 'toggleHeading'
 }];
 
 
-const normalizeLink = (link) => {
+export const normalizeLink = (link) => {
   if (link.indexOf('http://') === 0 || link.indexOf('https://') === 0) {
     return link;
   }
