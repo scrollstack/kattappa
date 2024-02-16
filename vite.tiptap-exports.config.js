@@ -14,6 +14,6 @@ export default defineConfig({
       output: {
         dir: path.resolve(path.dirname(''), 'lib'),
       },
-    },
+    }
   },
 });

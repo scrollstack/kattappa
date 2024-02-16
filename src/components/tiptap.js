@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Editor, StarterKit, Placeholder, OrderedList, BulletList, ListItem, Underline, Link } from '../tiptap-exports'
+import { Editor, StarterKit, Placeholder, Underline, Link } from '../tiptap-exports'
 
 import {
   toolbarButtons,
@@ -63,16 +63,15 @@ export default class TiptapEditor extends React.Component {
           Placeholder.configure({
             placeholder: this.props.placeholder,
           }),
-          BulletList,
-          OrderedList,
-          ListItem,
           Dropcap
         ],
         content: this.props.content,
+        autofocus: !this.props.content,
         onUpdate: ({ editor }) => {
           this.props.onContentChanged(editor.getHTML());
         },
         onSelectionUpdate: this.onSelect,
+        onBlur: this.onBlur,
         editorProps: {
           handleKeyDown: (view, e) => {
             return this.captureReturn(e)
@@ -235,9 +234,9 @@ export default class TiptapEditor extends React.Component {
   handleLinkShortcut(e) {
     if (e.which === 75 && (e.ctrlKey || e.metaKey)) {
       e.preventDefault();
-      const selection = this.tiptap.editor.selection;
+      const selection = this.tiptap.state.selection;
       if (selection && !selection.empty) {
-        this.handleCommand('link', 'toogleLink');
+        this.handleCommand('link', 'toggleLink');
       }
     }
   }
