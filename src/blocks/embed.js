@@ -1,14 +1,8 @@
 import React from 'react';
-import url from 'url';
 import {UrlRegex} from '../utils';
 import Keys from '../utils/keys';
 
 var Types = require('./embeds');
-
-function getDomain(link) {
-  var a = url.parse(link);
-  return a.hostname === 'youtu.be' ? 'youtube.com' : a.hostname;
-}
 
 let Embed = {
   Name: 'embed',
@@ -62,10 +56,10 @@ class BlockEmbed extends React.Component {
       url = 'https://'+url;
     }
     if(UrlRegex.test(url)) {
-      var domain = getDomain(url);
       var Types = this.props.EmbedTypes;
       for(var key in Types) {
-        if(domain.indexOf(key) > -1) {
+        var props = Types[key].defaultProps;
+        if (props && props.regex && props.regex.exec(url)) {
           this.setState({
             loaded: true,
             domain: key,
