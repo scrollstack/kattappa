@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Editor, StarterKit, Placeholder, Underline, Link } from '../tiptap-exports'
+import { Editor, StarterKit, Placeholder, Underline, Link, DOMSerializer } from '../tiptap-exports'
 
 import {
   toolbarButtons,
@@ -9,7 +9,6 @@ import {
   Dropcap
 } from './scribe-options';
 import Keys from '../utils/keys';
-
 
 export default class TiptapEditor extends React.Component {
 
@@ -38,6 +37,7 @@ export default class TiptapEditor extends React.Component {
     this._onSelect = this._onSelect.bind(this);
     this.handleLink = this.handleLink.bind(this);
     this.handleLinkShortcut = this.handleLinkShortcut.bind(this);
+    this.getHTML = this.getHTML.bind(this);
 
     this.onBlur = () => {
       if (this.state.showLinkInput) {
@@ -78,8 +78,6 @@ export default class TiptapEditor extends React.Component {
           }
         }
     })
-
-    // this.tiptap.commands.setContent(this.props.content);
 
     if (this.props.onFocus) {
       this.dom.addEventListener('focus', this.props.onFocus);
@@ -267,6 +265,29 @@ export default class TiptapEditor extends React.Component {
           .run();
       }, 0);
     }
+  }
+
+  getHTML() {
+    const { view: { state }} = this.tiptap
+    const tempDiv = document.createElement("div");
+    const baseSerializer = DOMSerializer.fromSchema(this.tiptap.schema)
+    const customSerializer = new DOMSerializer({
+      ...baseSerializer.nodes,
+      paragraph(node) { 
+        const dom = document.createElement("p");
+        if (node.content.size === 0) {
+          dom.appendChild(document.createElement("br"));
+          return dom
+        } else {
+          return ['p', node.attrs, 0]
+        }
+      }
+    }, baseSerializer.marks)
+    const docFragment = customSerializer.serializeFragment(state.doc.content)
+
+    tempDiv.append(docFragment);
+
+    return tempDiv.innerHTML
   }
 
   render() {

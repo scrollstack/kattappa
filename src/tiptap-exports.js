@@ -6,3 +6,4 @@ export { default as Link } from '@tiptap/extension-link'
 export { Extension, Mark } from '@tiptap/core'
 export {inputRules, smartQuotes, emDash, ellipsis} from "@tiptap/pm/inputrules"
 export { TextSelection } from "@tiptap/pm/state"
+export { DOMSerializer } from "@tiptap/pm/model"

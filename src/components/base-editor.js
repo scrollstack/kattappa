@@ -10,13 +10,14 @@ export default class Editor extends React.Component {
     this.state = {
       isTiptap: window.isTiptap,
     };
+    this.editor = null;
   }
 
   render() {
     if(!this.state.isTiptap) {
       return (<Scribe {...this.props} />);
     }
-    return (<Tiptap {...this.props} />);
+    return (<Tiptap ref={(node) => {this.editor=node}} {...this.props} />);
   }
 }
 

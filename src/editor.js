@@ -23,17 +23,18 @@ export default class Editor extends React.Component {
     this.splitBlock = this.splitBlock.bind(this);
   }
 
-  splitBlock(position) {
+  splitBlock(position, blockHTML) {
     const splitter = this.props.splitter;
     const newBlocks = this.props.blocks;
     const currentBlock = newBlocks[position];
+    const blockData = blockHTML || currentBlock.data || ''
 
     if(currentBlock.type !== Blocks.text.Name) {
       return;
     }
 
     const splitterRegex = /((?:<[a-zA-Z\d]{1,}>){1,2}<br>(?:<\/[a-zA-Z\d]{1,}>){1,2})/gi;
-    const stringsFix = currentBlock.data.replace(splitterRegex, splitter);
+    const stringsFix = blockData.replace(splitterRegex, splitter);
     const stringsTmp = stringsFix.split(splitter);
 
     const strings = [];
