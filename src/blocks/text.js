@@ -8,6 +8,7 @@ class BlockText extends React.Component {
 
   constructor(props) {
     super(props);
+    this.textBlock = null;
     this.captureReturn = this.captureReturn.bind(this);
     this.onContentChanged = this.onContentChanged.bind(this);
     this.splitBlock = this.splitBlock.bind(this);
@@ -24,7 +25,7 @@ class BlockText extends React.Component {
   }
 
   splitBlock(e) {
-    this.props.splitBlock(this.props.position);
+    this.props.splitBlock(this.props.position, this.textBlock.editor.getHTML());
   }
 
   render() {
@@ -38,9 +39,11 @@ class BlockText extends React.Component {
           >&lt;/&gt;</button>
         </div>
         <TextComponent
+          ref={(node) => {this.textBlock=node}}
           content={this.props.content}
           options={baseTextOptions}
-          onContentChanged={this.onContentChanged} />
+          onContentChanged={this.onContentChanged} 
+        />
       </div>
     );
   }
