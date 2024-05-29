@@ -59,7 +59,7 @@ class BlockEmbed extends React.Component {
       var Types = this.props.EmbedTypes;
       for(var key in Types) {
         var props = Types[key].defaultProps;
-        if (props && props.regex && props.regex.exec(url)) {
+        if (props && props.regex && url.match(props.regex)) {
           this.setState({
             loaded: true,
             domain: key,
